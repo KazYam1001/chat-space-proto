@@ -6,7 +6,9 @@
 @import "./reset";
 @import "config/colors";
 @import "mixin/basic";
-@import "modules/groups_index";
+@import "modules/flash";
+@import "modules/side";
+@import "modules/main";
 
 * {
   box-sizing: border-box;
