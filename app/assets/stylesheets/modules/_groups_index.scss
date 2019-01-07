@@ -1,0 +1,10 @@
+@import "../config/colors";
+@import "../mixin/basic";
+
+p {
+  color: $light_blue;
+}
+
+a {
+  @include link_color($text_dark_gray);
+}
