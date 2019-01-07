@@ -1,3 +1,9 @@
 @import "../config/colors";
 @import "../mixin/basic";
 
+.flash-box {
+  @include font_basic(white, 1rem, lighter, center);
+  width: 100vw;
+  background-color: $light_blue;
+  position: fixed;
+}
