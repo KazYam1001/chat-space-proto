@@ -31,12 +31,13 @@ $(document).on('turbolinks:load', function() {
 
   $('#user-search-field').on('input', function(e) {
     e.preventDefault();
-    user_list.empty();
     // 入力内容を取得
     const input = $('#user-search-field').val();
     if (input.length == 0) {
+      user_list.empty();
       return
     };
+
     $.ajax({
       type: 'GET',
       url: '/users',
@@ -45,6 +46,7 @@ $(document).on('turbolinks:load', function() {
               user_ids: userIds },
     })
     .done(function(users) {
+      user_list.empty();
       if (users.length !== 0) {
         users.forEach(function(user) {
           appendUser(user);
