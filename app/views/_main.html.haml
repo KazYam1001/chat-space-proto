@@ -6,8 +6,8 @@
         Member：
         - @group.users.each do |user|
           %li.main-header__left-box__member-list__member= user.name
-    .main-header__edit-btn
-      = link_to 'Edit', edit_group_path(@group)
+    = link_to edit_group_path(@group) do
+      .main-header__edit-btn Edit
   .messages
     = render @messages
   .form
@@ -17,4 +17,4 @@
         = f.label :image, class: "input-box__image" do
           = fa_icon("image")
           = f.file_field :image, class: "input-box__image__file"
-      = f.submit value: "Send", class: "submit-btn"
+      = f.submit "Send", class: "submit-btn"
