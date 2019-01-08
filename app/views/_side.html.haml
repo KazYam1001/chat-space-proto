@@ -10,6 +10,7 @@
           = link_to edit_user_path(current_user) do
             = fa_icon 'cog'
   .groups
-    .group
-      %p.group__group-name 梅田校
-      %p.group__latest-message 狭い
+    - @groups.each do |group|
+      .group
+        %p.group__group-name= group.name
+        %p.group__latest-message 狭い

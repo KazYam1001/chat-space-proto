@@ -30,10 +30,10 @@
   .groups {
     height: calc(100vh - 100px);
     background-color: $side_group_background;
-    padding: 0 20px;
+    padding: 20px 20px 0;
     overflow: scroll;
     .group {
-      padding: 20px 0 40px;
+      margin-bottom: 40px;
       &__group-name {
         font-size: 15px;
         margin-bottom: 5px;
