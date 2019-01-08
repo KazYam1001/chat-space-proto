@@ -13,16 +13,28 @@
         = link_to 'Edit', '/'
     .messages
       .message
-        .messeage__upper-info
-          %p.messeage__upper-info__talker 発言者
-          %p.messeage__upper-info__date 2019/11/11 12:34
+        .message__upper-info
+          %p.message__upper-info__talker 発言者
+          %p.message__upper-info__date 2019/11/11 12:34
+        %p.message__text メッセージ
+        %img.message__image{src: "hoge"}
+      .message
+        .message__upper-info
+          %p.message__upper-info__talker 発言者
+          %p.message__upper-info__date 2019/11/11 12:34
+        %p.message__text メッセージ
+        %img.message__image{src: "hoge"}
+      .message
+        .message__upper-info
+          %p.message__upper-info__talker 発言者
+          %p.message__upper-info__date 2019/11/11 12:34
         %p.message__text メッセージ
         %img.message__image{src: "hoge"}
     .form
       %form
         .input-box
-          %input.input-box__text{type: "text"}
+          %input.input-box__text{type: "text", placeholder: "type a message"}
           %label.input-box__image
             = fa_icon("image")
             %input.input-box__image__file{type: "file"}
-        %input{type: "submit", value: "Send"}
+        %input.submit-btn{type: "submit", value: "Send"}
