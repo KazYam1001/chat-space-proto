@@ -1,1 +1,3 @@
-.flash-box チャットグループが作成されました
+.flash-box
+  - flash.each do |key, value|
+    = content_tag :div, value, class: key
