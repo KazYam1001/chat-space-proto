@@ -1,0 +1,37 @@
+.chat-main
+  .main-header
+    .main-header__left-box
+      %h2.main-header__left-box__current-group カレントグループ
+      %ul.main-header__left-box__member-list
+        Member：
+        %li.main-header__left-box__member-list__member 山西
+        %li.main-header__left-box__member-list__member 森本
+    .main-header__edit-btn
+      = link_to 'Edit', '/'
+  .messages
+    .message
+      .message__upper-info
+        %p.message__upper-info__talker 発言者
+        %p.message__upper-info__date 2019/11/11 12:34
+      %p.message__text メッセージ
+      %img.message__image{src: "hoge"}
+    .message
+      .message__upper-info
+        %p.message__upper-info__talker 発言者
+        %p.message__upper-info__date 2019/11/11 12:34
+      %p.message__text メッセージ
+      %img.message__image{src: "hoge"}
+    .message
+      .message__upper-info
+        %p.message__upper-info__talker 発言者
+        %p.message__upper-info__date 2019/11/11 12:34
+      %p.message__text メッセージ
+      %img.message__image{src: "hoge"}
+  .form
+    %form
+      .input-box
+        %input.input-box__text{type: "text", placeholder: "type a message"}
+        %label.input-box__image
+          = fa_icon("image")
+          %input.input-box__image__file{type: "file"}
+      %input.submit-btn{type: "submit", value: "Send"}
