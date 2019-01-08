@@ -16,8 +16,7 @@ $(document).on('turbolinks:load', function() {
   }
 
   const path = window.location.pathname;
-  const group_id  = $('.group-info__group-name').attr('group_id');
-
+  const groupId  = $('.main-header__left-box__current-group').data('group_id');
   // メッセージ送信
   $('#new_message').on('submit', function(e) {
     e.preventDefault();
@@ -34,7 +33,6 @@ $(document).on('turbolinks:load', function() {
     .done(function(data) {
       $('#new_message')[0].reset();
       $('.messages').append(buildHTML(data));
-      // メッセージが増えていくdivのscrollHeightを使ってスクロール
       $('.messages').animate({
         scrollTop: $('.messages')[0].scrollHeight
       }, 200);
@@ -47,4 +45,31 @@ $(document).on('turbolinks:load', function() {
       $(".submit-btn").prop('disabled', false)
     }, 1000);
   });
+
+  // 自動更新
+  if (path == `/groups/${groupId}/messages`) {
+    setInterval(function() {
+      const latestId = $('.message:last').data('message_id');
+      $.ajax({
+        url: path,
+        data: {
+          latest_id: latestId
+        },
+        dataType: 'json'
+      })
+      .done(function(data) {
+        if (data.length != 0) {
+          $.each(data, function(i, message) {
+            $('.messages').append(buildHTML(message));
+          });
+          $('.messages').animate({
+            scrollTop: $('.messages')[0].scrollHeight
+          }, 200);
+        }
+      })
+      .fail(function() {
+        alert('自動更新に失敗しました')
+      });
+    }, 5000);
+  }
 });

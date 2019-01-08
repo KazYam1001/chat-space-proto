@@ -4,6 +4,13 @@ class MessagesController < ApplicationController
   def index
     @messages = @group.messages.includes(:user)
     @message  = Message.new
+    respond_to do |format|
+      format.html
+      format.json {
+        # latest_idより大きいidのメッセージを取得
+        @new_messages = Message.where(["id > ? and group_id = ?", params[:latest_id], @group.id])
+      }
+    end
   end
 
   def create
