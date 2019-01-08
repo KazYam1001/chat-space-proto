@@ -28,10 +28,10 @@
       %p.message__text メッセージ
       %img.message__image{src: "hoge"}
   .form
-    %form
+    = form_for [@group, @message] do |f|
       .input-box
-        %input.input-box__text{type: "text", placeholder: "type a message"}
-        %label.input-box__image
+        = f.text_field :content, placeholder: "type a message", class: "input-box__text"
+        = f.label :image, class: "input-box__image" do
           = fa_icon("image")
-          %input.input-box__image__file{type: "file"}
-      %input.submit-btn{type: "submit", value: "Send"}
+          = f.file_field :image, class: "input-box__image__file"
+      = f.submit value: "Send", class: "submit-btn"
