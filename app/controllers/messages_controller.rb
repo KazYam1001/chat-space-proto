@@ -2,7 +2,6 @@ class MessagesController < ApplicationController
   before_action :set_group
 
   def index
-    @groups = current_user.groups
     @messages = @group.messages.includes(:user)
     @message  = Message.new
   end
@@ -10,7 +9,7 @@ class MessagesController < ApplicationController
   def create
     @message = @group.messages.new(message_params)
     if @message.save
-      redirect_to group_messages_path, noice: "メッセージが送信されました"
+      redirect_to group_messages_path, notice: "メッセージが送信されました"
     else
       @messages = @group.messages.includes(:user)
       flash.now[:alert] = 'メッセージを入力して下さい'

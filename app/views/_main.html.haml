@@ -1,32 +1,15 @@
 .chat-main
   .main-header
     .main-header__left-box
-      %h2.main-header__left-box__current-group カレントグループ
+      %h2.main-header__left-box__current-group= @group.name
       %ul.main-header__left-box__member-list
         Member：
-        %li.main-header__left-box__member-list__member 山西
-        %li.main-header__left-box__member-list__member 森本
+        - @group.users.each do |user|
+          %li.main-header__left-box__member-list__member= user.name
     .main-header__edit-btn
-      = link_to 'Edit', '/'
+      = link_to 'Edit', edit_group_path(@group)
   .messages
-    .message
-      .message__upper-info
-        %p.message__upper-info__talker 発言者
-        %p.message__upper-info__date 2019/11/11 12:34
-      %p.message__text メッセージ
-      %img.message__image{src: "hoge"}
-    .message
-      .message__upper-info
-        %p.message__upper-info__talker 発言者
-        %p.message__upper-info__date 2019/11/11 12:34
-      %p.message__text メッセージ
-      %img.message__image{src: "hoge"}
-    .message
-      .message__upper-info
-        %p.message__upper-info__talker 発言者
-        %p.message__upper-info__date 2019/11/11 12:34
-      %p.message__text メッセージ
-      %img.message__image{src: "hoge"}
+    = render @messages
   .form
     = form_for [@group, @message] do |f|
       .input-box
