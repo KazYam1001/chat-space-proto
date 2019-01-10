@@ -15,12 +15,14 @@ $(document).on('turbolinks:load', function() {
     return html;
   }
 
-  document.addEventListener("turbolinks:visit", function(){
-    clearInterval(timerId)
-  });
-
+  let timerId
   const path = window.location.pathname;
   const groupId  = $('.main-header__left-box__current-group').data('group_id');
+
+  document.addEventListener("turbolinks:visit", function(){
+    clearInterval(timerId);
+  });
+
   // メッセージ送信
   $('#new_message').on('submit', function(e) {
     e.preventDefault();
