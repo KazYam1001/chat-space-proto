@@ -15,6 +15,10 @@ $(document).on('turbolinks:load', function() {
     return html;
   }
 
+  document.addEventListener("turbolinks:visit", function(){
+    clearInterval(timerId)
+  });
+
   const path = window.location.pathname;
   const groupId  = $('.main-header__left-box__current-group').data('group_id');
   // メッセージ送信
@@ -48,7 +52,7 @@ $(document).on('turbolinks:load', function() {
 
   // 自動更新
   if (path == `/groups/${groupId}/messages`) {
-    setInterval(function() {
+    timerId = setInterval(function() {
       const latestId = $('.message:last').data('message_id');
       $.ajax({
         url: path,
