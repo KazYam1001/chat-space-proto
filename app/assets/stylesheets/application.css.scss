@@ -1,9 +1,5 @@
-/*
- *= require font-awesome
- *= require_self
- */
-
-@import "./reset";
+@import "font-awesome";
+@import "reset";
 @import "config/colors";
 @import "mixin/basic";
 @import "modules/flash";
@@ -24,8 +20,4 @@
 
 a {
   text-decoration: none;
-}
-
-ul {
-  list-style-type: none;
 }
