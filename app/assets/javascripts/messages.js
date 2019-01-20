@@ -1,9 +1,6 @@
 $(document).on('turbolinks:load', function() {
   function buildHTML(message) {
-    let image = ""
-    if (message.image.url) {
-      image = `<img src="${message.image.url}">`;
-    }
+    const image = message.image.url ? `<img src="${message.image.url}">` : "" ;
     const html = `<div class="message" data-message_id="${message.id}">
                     <div class="message__upper-info">
                       <p class="message__upper-info__talker">${message.user_name}</p>
@@ -36,9 +33,9 @@ $(document).on('turbolinks:load', function() {
       processData: false,
       contentType: false
     })
-    .done(function(data) {
+    .done(function(message) {
       $('#new_message')[0].reset();
-      $('.messages').append(buildHTML(data));
+      $('.messages').append(buildHTML(message));
       $('.messages').animate({
         scrollTop: $('.messages')[0].scrollHeight
       }, 200);
@@ -63,9 +60,9 @@ $(document).on('turbolinks:load', function() {
         },
         dataType: 'json'
       })
-      .done(function(data) {
-        if (data.length != 0) {
-          $.each(data, function(i, message) {
+      .done(function(newMessages) {
+        if (newMessages.length != 0) {
+          $.each(newMessages, function(i, message) {
             $('.messages').append(buildHTML(message));
           });
           $('.messages').animate({
