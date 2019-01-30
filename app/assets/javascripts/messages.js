@@ -1,6 +1,6 @@
 $(document).on('turbolinks:load', function() {
   function buildHTML(message) {
-    const image = message.image.url ? `<img src="${message.image.url}">` : "" ;
+    const image = message.image ? `<img src="${message.image}">` : "" ;
     const html = `<div class="message" data-message_id="${message.id}">
                     <div class="message__upper-info">
                       <p class="message__upper-info__talker">${message.user_name}</p>
@@ -34,19 +34,23 @@ $(document).on('turbolinks:load', function() {
       contentType: false
     })
     .done(function(message) {
-      $('#new_message')[0].reset();
-      $('.messages').append(buildHTML(message));
-      $('.messages').animate({
-        scrollTop: $('.messages')[0].scrollHeight
-      }, 200);
+      if (message.content == "" && message.image == null) {
+        alert('メッセージを入力して下さい');
+      } else {
+        $('#new_message')[0].reset();
+        $('.messages').append(buildHTML(message));
+        $('.messages').animate({
+          scrollTop: $('.messages')[0].scrollHeight
+        }, 200);
+
+      }
     })
     .fail(function() {
       alert("通信に失敗しました");
-    });
-
-    setTimeout(function() {
+    })
+    .always(function() {
       $(".submit-btn").prop('disabled', false)
-    }, 1000);
+    });
   });
 
   // 自動更新
