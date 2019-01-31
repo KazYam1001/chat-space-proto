@@ -56,7 +56,7 @@ $(document).on('turbolinks:load', function() {
   // 自動更新
   if (path == `/groups/${groupId}/messages`) {
     timerId = setInterval(function() {
-      const latestId = $('.message:last').data('message_id');
+      const latestId = $('.message:last').data('message_id') || 0;
       $.ajax({
         url: path,
         data: {
