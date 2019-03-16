@@ -1,4 +1,3 @@
-a
 # README
 
 ## usersテーブル
