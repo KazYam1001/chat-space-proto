@@ -2,15 +2,8 @@ class MessagesController < ApplicationController
   before_action :set_group
 
   def index
-    @messages = @group.messages.includes(:user)
+    @messages = @group.messages.includes(:user).order('id ASC')
     @message  = Message.new
-    respond_to do |format|
-      format.html
-      format.json {
-        # latest_idより大きいidのメッセージを取得
-        @new_messages = Message.where(["id > ? and group_id = ?", params[:latest_id], @group.id])
-      }
-    end
   end
 
   def create
