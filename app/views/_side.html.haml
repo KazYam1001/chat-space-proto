@@ -1,14 +1,13 @@
 .chat-side
   .side-header
-    .side-header__box
-      %p.side-header__box__user-name= current_user.name
-      %ul.side-header__box__menu
-        %li.side-header__box__menu__edit-user
-          = link_to new_group_path do
-            = fa_icon 'edit'
-        %li.side-header__box__menu__new-group
-          = link_to edit_user_path(current_user) do
-            = fa_icon 'cog'
+    %p.side-header__user-name= current_user.name
+    %ul.user-menu
+      %li.user-menu__edit-user
+        = link_to new_group_path do
+          = fa_icon 'edit'
+      %li.user-menu__new-group
+        = link_to edit_user_path(current_user) do
+          = fa_icon 'cog'
   .groups
     - current_user.groups.includes(:messages).each do |group|
       = link_to group_messages_path(group) do

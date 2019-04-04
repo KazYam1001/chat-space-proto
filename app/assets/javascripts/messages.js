@@ -1,10 +1,10 @@
 $(document).on('turbolinks:load', function() {
-  function buildHTML(message) {
+  const buildHTML = function (message) {
     const image = message.image ? `<img src="${message.image}">` : "" ;
     const html = `<div class="message" data-message_id="${message.id}">
-                    <div class="message__upper-info">
-                      <p class="message__upper-info__talker">${message.user_name}</p>
-                      <p class="message__upper-info__date">${message.created_at}</p>
+                    <div class="upper-info">
+                      <p class="upper-info__user">${message.user_name}</p>
+                      <p class="upper-info__date">${message.created_at}</p>
                     </div>
                     <p class="message__text">${message.content}</p>
                     ${image}
@@ -12,10 +12,36 @@ $(document).on('turbolinks:load', function() {
     return html;
   }
 
-  let timerId
-  const path = window.location.pathname;
-  const groupId  = $('.main-header__left-box__current-group').data('group_id');
+  // 自動更新用の関数
+  const reloadMessages = () =>{
+    const latestId = $('.message:last').data('message_id') || 0;
+    $.ajax({
+      url: `/groups/${groupId}/api/messages`,
+      data: {
+        latest_id: latestId,
+        group_id:  groupId
+      },
+      dataType: 'json'
+    })
+    .done(function(newMessages) {
+      if (newMessages.length != 0) {
+        $.each(newMessages, function(i, message) {
+          $('.messages').append(buildHTML(message));
+        });
+        $('.messages').animate({
+          scrollTop: $('.messages')[0].scrollHeight
+        }, 200);
+      }
+    })
+    .fail(function() {
+      alert('自動更新に失敗しました')
+    });
+  }
 
+  let timerId
+  const groupId  = $('.current-group').data('group_id');
+
+  // turbolinks:visitイベントでclearIntervalを発火させる
   document.addEventListener("turbolinks:visit", function(){
     clearInterval(timerId);
   });
@@ -24,9 +50,8 @@ $(document).on('turbolinks:load', function() {
   $('#new_message').on('submit', function(e) {
     e.preventDefault();
     const formData = new FormData(this);
-
     $.ajax({
-      url: path,
+      url: $(this).attr('action'),
       type: 'POST',
       data: formData,
       dataType: 'json',
@@ -49,34 +74,12 @@ $(document).on('turbolinks:load', function() {
       alert("通信に失敗しました");
     })
     .always(function() {
-      $(".submit-btn").prop('disabled', false)
+      $(".new-message__submit-btn").prop('disabled', false);
     });
   });
 
   // 自動更新
-  if (path == `/groups/${groupId}/messages`) {
-    timerId = setInterval(function() {
-      const latestId = $('.message:last').data('message_id') || 0;
-      $.ajax({
-        url: path,
-        data: {
-          latest_id: latestId
-        },
-        dataType: 'json'
-      })
-      .done(function(newMessages) {
-        if (newMessages.length != 0) {
-          $.each(newMessages, function(i, message) {
-            $('.messages').append(buildHTML(message));
-          });
-          $('.messages').animate({
-            scrollTop: $('.messages')[0].scrollHeight
-          }, 200);
-        }
-      })
-      .fail(function() {
-        alert('自動更新に失敗しました')
-      });
-    }, 5000);
+  if (location.pathname == `/groups/${groupId}/messages`) {
+    timerId = setInterval(reloadMessages, 5000);
   }
 });
