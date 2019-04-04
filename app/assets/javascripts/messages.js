@@ -2,9 +2,9 @@ $(document).on('turbolinks:load', function() {
   const buildHTML = function (message) {
     const image = message.image ? `<img src="${message.image}">` : "" ;
     const html = `<div class="message" data-message_id="${message.id}">
-                    <div class="message__upper-info">
-                      <p class="message__upper-info__talker">${message.user_name}</p>
-                      <p class="message__upper-info__date">${message.created_at}</p>
+                    <div class="upper-info">
+                      <p class="upper-info__user">${message.user_name}</p>
+                      <p class="upper-info__date">${message.created_at}</p>
                     </div>
                     <p class="message__text">${message.content}</p>
                     ${image}
@@ -39,7 +39,7 @@ $(document).on('turbolinks:load', function() {
   }
 
   let timerId
-  const groupId  = $('.main-header__left-box__current-group').data('group_id');
+  const groupId  = $('.current-group').data('group_id');
 
   // turbolinks:visitイベントでclearIntervalを発火させる
   document.addEventListener("turbolinks:visit", function(){
