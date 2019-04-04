@@ -74,7 +74,7 @@ $(document).on('turbolinks:load', function() {
       alert("通信に失敗しました");
     })
     .always(function() {
-      $(".submit-btn").prop('disabled', false);
+      $(".new-message__submit-btn").prop('disabled', false);
     });
   });
 
