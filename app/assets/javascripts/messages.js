@@ -40,7 +40,6 @@ $(document).on('turbolinks:load', function() {
 
   let timerId
   const groupId  = $('.current-group').data('group_id');
-
   // turbolinks:visitイベントでclearIntervalを発火させる
   document.addEventListener("turbolinks:visit", function(){
     clearInterval(timerId);

@@ -2,10 +2,10 @@
   .side-header
     %p.side-header__user-name= current_user.name
     %ul.user-menu
-      %li.user-menu__edit-user
+      %li.user-menu__new-group
         = link_to new_group_path do
           = fa_icon 'edit'
-      %li.user-menu__new-group
+      %li.user-menu__edit-user
         = link_to edit_user_path(current_user) do
           = fa_icon 'cog'
   .groups
